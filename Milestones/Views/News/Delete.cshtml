@@ -1,0 +1,34 @@
+﻿@model Milestones.Models.LatestActivities
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="register">
+    <h2>
+        <img src="~/Images/News-Delete.png" /></h2>
+    <h3>Are you sure you want to delete this news content?</h3>
+    <hr />
+    <p>
+        Title:<b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.title</b>
+    </p>
+    <p style="font-size: 11pt">
+        Date added: <b>&nbsp;&nbsp;&nbsp;&nbsp;@Model.DateCreated</b>
+    </p>
+</div>
+<div class="register">
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <p>
+            <input type="submit" class="btn btn-danger" value="Yes, delete." />
+        
+        <a href="~/Home/admin" class="btn">No, back to admin.</a>
+        </p>
+    }
+</div>

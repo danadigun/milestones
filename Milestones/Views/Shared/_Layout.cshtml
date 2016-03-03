@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-ng-app="">
+<head>
+    <meta charset="utf-8" />
+    <title>Milestones Center for Addiction Management - Official Website. | @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    <link href="~/ekallevig-jShowOff-d0a3356/jshowoff.css" rel="stylesheet" />
+    @Styles.Render("~/Content/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @*@Styles.Render("~/Content/bootstrap-editor")*@
+
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=184669988357901";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-42269197-1', 'www.milestonescenter.org');
+        ga('send', 'pageview');
+
+    </script>
+    <div>
+        <div class="content-wrapper-header hidden-phone hidden-tablet">
+            <div class="float-left">
+                @* <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>*@
+            </div>
+            <div class="float-right" style="padding-right: 50px; padding-top: 30px">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+
+            </div>
+        </div>
+        @*Responsive design*@
+        <div class="content-wrapper-responsive visible-phone visible-tablet">
+            @Html.Partial("_LoginPartial")
+        </div>
+        <div class="navbar navbar-inverse navbar-fixed-top hidden-desktop " style="background-color: #000;">
+            <div class="navbar-inner" style="background-color: #000;">
+                <div class="container" style="text-align: center; background-color: #000;">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="brand" href="~/">
+                        <img src="~/Images/MilestonesLogo-Black.png" />&nbsp;&nbsp;Milestones Center</a>
+                    <div class="nav-collapse collapse">
+
+                        <ul class="nav">
+
+                            <li class="Active">
+                                <a href="~/">Home</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Home/About">About Us</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Home/News">News</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Home/Services">Services</a>
+                            </li>
+                            <li class="">
+                                <a href="~/Home/Location">Our location</a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="">
+                                    <a href="#">Admin</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div id="body">
+        @*Desktop menu*@
+        <div class="main-menu visible-desktop">
+            <div class="navigation container">
+                <a href="~/">
+                    <img src="~/Images/home.png" />&nbsp;Home</a>
+                <a href="~/Home/About">About Us</a>
+                <a href="~/Home/news">News</a>
+                <a href="~/Home/Services">Services</a>
+                <a href="~/Home/Location">Our location</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="~/Home/admin">Manage Site</a>
+                }
+                <label style="color: whitesmoke" class="float-right"><i class="icon-calendar icon-white"></i>&nbsp;&nbsp;@DateTime.Now.ToLongDateString()</label>
+            </div>
+        </div>
+        <div class="clearance visible-desktop"></div>
+        <div class="body content-wrapper container">
+            @RenderBody()
+            <div class="footer-initial">
+                <div style="padding: 30px;">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <p style="font-size: 16pt">Like us on Facebook</p>
+                            @*<p style="font-size: 10pt;">
+                                <a href="#">
+                                    <img src="~/Images/Like.png" /></a>&nbsp;Like us.
+                            </p>*@
+                            <div class="row-fluid">
+                                @*  <div class="span2"><span style="margin-left: 20px;">
+                                    <img src="~/Images/Like.png" /></span></div>*@
+                                <div class="span6">
+                                    <div class="fb-like" data-href="http://milestonescenter.org" data-send="true" data-width="450" data-show-faces="false" data-font="trebuchet ms"></div>
+                                </div>
+                            </div>
+
+
+                            <br />
+                            <br />
+                            <p style="font-size: 16pt">Call Us</p>
+                            <p style="font-size: 19pt;">
+                                <img src="~/Images/Windows-Mobile.png" />+234-7032300802
+                            </p>
+                        </div>
+                        <div class="span4 share-footer">
+                            <p style="font-size: 16pt;">Share this Page</p>
+                            <p style="font-size: 10pt;">Get the word out! Share this page with your friends and family.</p>
+                            <p>
+                                <a href="http://www.facebook.com/milestonescenter.ng" title="Facebook.com">
+                                    <img src="~/Images/Facebook-hover.png" /></a>
+                                <a href="https://twitter.com/Milestones_ng" title="twitter.com">
+                                    <img src="~/Images/Twitter-Bird-hover.png" /></a>
+                            </p>
+                            <br />
+                            <br />
+                            <p style="font-size: 16pt;">Our Partners</p>
+                            <p style="font-size: 10pt;">
+                                Milestones Addiction Center is Owned and Operated by Milestones Consilium Ltd.
+
+The Center is affiliated with Milestones Rehabilitation Foundation, an NGO that works on Substance Abuse Related Issues. Focusing particularly on Research and Capacity Development.
+
+                            </p>
+                        </div>
+                        <div class="span4 visible-desktop">
+                            <p>Quick Links</p>
+                            <p style="padding-left: 10px; font-size: 12pt;">The Center</p>
+                            <div style="font-size: 10pt; padding-left: 20px;">
+                                <p style="font-size: 10pt;"><a href="~/Home/About">About us </a></p>
+                                <p style="font-size: 10pt;"><a href="~/Home/News">News </a></p>
+                                <p style="font-size: 10pt;"><a href="~/Home/Services">Services </a></p>
+                                <p style="font-size: 10pt;"><a href="~/Home/Location">Contact Us. </a></p>
+                            </div>
+                            <p style="padding-left: 10px; font-size: 12pt;">Treatment Options</p>
+                            <div style="font-size: 10pt; padding-left: 20px;">
+                                <p style="font-size: 10pt;"><a href="~/Home/Services">treatment options </a></p>
+                                <p style="font-size: 10pt;"><a href="~/Home/ScreeningTest">Online assessment </a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-clearance">
+                <p>&nbsp;</p>
+            </div>
+            <div class="footer">
+                <p style="text-align: center">&copy; @DateTime.Now.Year - Milestones Center for Addiction Management. | <a href="https://www.zoho.com/mail/login.html">WebMail</a></p>
+                <p style="text-align: center; font-size: 7pt;">Web Design by <a href="http://muzeolanigeria.com">Muzeola Nigeria Ltd.</a></p>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/ekallevig-jShowOff-d0a3356/jquery.jshowoff.js"></script>
+    <script src="~/jquery.innerfade/jquery.innerfade/js/jquery.innerfade.js"></script>
+    <script src="~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    @*     <script src="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.min.js"></script>
+    <script src="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.js"></script>
+    <script src="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/libs/js/jquery-1.7.1.min.js"></script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#slidingFeatures').jshowoff({
+                effect: 'slideLeft',
+                speed: '5000',
+                controlText: { play: 'Play', pause: 'Pause', previous: '<', next: '>' },
+                hoverPause: false
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#latestActivities').jshowoff({
+                links: false,
+                controls: false,
+                effect: 'none',
+                speed: '7000',
+                cssClass: 'basicFeatures',
+                hoverPause: false
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#AffliatedOrganisations').innerfade({
+                //animationtype: 'slide',
+                speed: 750,
+                timeout: 3000,
+                type: 'sequence',
+                //containerheight: '1em'
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy'
+        }); //Initialise any date pickers
+    </script>
+
+
+    <script src="~/TinyAccordion/script.js"></script>
+    <script type="text/javascript">
+
+        var parentAccordion = new TINY.accordion.slider("parentAccordion");
+        parentAccordion.init("acc", "h3", 0, 0);
+
+        var nestedAccordion = new TINY.accordion.slider("nestedAccordion");
+        //nestedAccordion.init("nested", "h3", 1, -1, "acc-selected");
+        nestedAccordion.init("nested1", "h3", 1, -1, "acc-selected");
+
+    </script>
+    <script type="text/javascript">
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        var form = $("#ScreeningForm1").validate();
+        $("button").click(function () {
+            alert("Valid: " + form.valid());
+        });
+    </script>
+
+    <script src="~/AD%20Gallery%201.2.7/lib/jquery.ad-gallery.js"></script>
+    @*  <script src="~/AD%20Gallery%201.2.7/lib/jquery.ad-gallery.min.js"></script>*@
+    <script type="text/javascript">
+        $(function () {
+            $('img.image1').data('ad-desc', 'Whoa! This description is set through elm.data("ad-desc") instead of using the longdesc attribute.<br>And it contains <strong>H</strong>ow <strong>T</strong>o <strong>M</strong>eet <strong>L</strong>adies... <em>What?</em> That aint what HTML stands for? Man...');
+            $('img.image1').data('ad-title', 'Title through $.data');
+            $('img.image4').data('ad-desc', 'This image is wider than the wrapper, so it has been scaled down');
+            $('img.image5').data('ad-desc', 'This image is higher than the wrapper, so it has been scaled down');
+            var galleries = $('.ad-gallery').adGallery();
+            setTimeout(function () {
+                galleries[0].addImage("~/AD%20Gallery%201.2.7/example/images/thumbs/t7.jpg", "~/AD%20Gallery%201.2.7/example/images/7.jpg");
+            }, 1000);
+            setTimeout(function () {
+                galleries[0].addImage("~/AD%20Gallery%201.2.7/example/images/thumbs/t8.jpg", "~/AD%20Gallery%201.2.7/example/images/8.jpg");
+            }, 2000);
+            setTimeout(function () {
+                galleries[0].addImage("~/AD%20Gallery%201.2.7/example/images/thumbs/t9.jpg", "~/AD%20Gallery%201.2.7/example/images/9.jpg");
+            }, 3000);
+            setTimeout(function () {
+                galleries[0].removeImage(1);
+            }, 4000);
+
+            $('#switch-effect').change(
+              function () {
+                  galleries[0].settings.effect = $(this).val();
+                  return false;
+              }
+            );
+            $('#toggle-slideshow').click(
+              function () {
+                  galleries[0].slideshow.toggle();
+                  return false;
+              }
+            );
+            $('#toggle-description').click(
+              function () {
+                  if (!galleries[0].settings.description_wrapper) {
+                      galleries[0].settings.description_wrapper = $('#descriptions');
+                  } else {
+                      galleries[0].settings.description_wrapper = false;
+                  }
+                  return false;
+              }
+            );
+        });
+  </script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

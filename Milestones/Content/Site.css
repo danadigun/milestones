@@ -1,0 +1,543 @@
+﻿.html {
+    background-color: whitesmoke;
+}
+
+.body {
+    border: 1px solid #DDDDDD;
+    margin-top: -2.85em;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 1px 50px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 50px rgba(0,0,0,.15);
+    box-shadow: 0 1px 50px rgba(0,0,0,.15);
+    /*font-family: 'Microsoft JhengHei';*/
+    font-family: 'Trebuchet MS';
+}
+
+body {
+    font-family: calibri;
+}
+
+input[type=radio], input[type=checkbox] {
+    display: none;
+}
+
+    input[type=radio] + label, input[type=checkbox] + label {
+        display: inline-block;
+        margin: -2px;
+        padding: 4px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: #f5f5f5;
+        background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+        background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+        background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+        background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+        background-image: linear-gradient(to bottom,#fff,#e6e6e6);
+        background-repeat: repeat-x;
+        border: 1px solid #ccc;
+        border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+        border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+        border-bottom-color: #b3b3b3;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    input[type=radio]:checked + label, input[type=checkbox]:checked + label {
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        background-color: #e0e0e0;
+    }
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.content-wrapper {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin-top:2em;*/
+}
+
+.content-wrapper-header {
+    /*padding-top:30px;*/ /*padding-right:50px;*/
+    background-position: center center;
+    width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0; /*background-image: url('../Images/mast-head-edited.png');*/
+    background-repeat: no-repeat;
+    background-color: #000000;
+    background-image: url('../Images/Milestones-header-edited3.png');
+}
+
+.content-wrapper-responsive {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+}
+
+.main-menu {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    margin-top: -2em;
+    background-color: #1b1b1b;
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,.15);
+    box-shadow: 0 1px 10px rgba(0,0,0,.15);
+}
+
+.navigation {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+}
+
+    .navigation a {
+        padding-right: 15px;
+        padding-left: 15px;
+        color: #999;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+        /*border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #808080;*/
+    }
+
+        .navigation a:hover {
+            text-decoration: none;
+            color:orange;
+            background-color: #65605E;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+.clearance {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    height: 40px;
+    background-color: #9A251C;
+    -webkit-box-shadow: 0 1px 10px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 10px rgba(0,0,0,.15);
+    box-shadow: 0 1px 10px rgba(0,0,0,.15);
+}
+.footer-initial {
+    border-color: #CCCCCC;
+    background: rgba(0,0,0,0.05);
+    color: #333;
+    width: 100%;
+    height: auto;
+    margin-top: 6em;
+    border-top-style: solid;
+    border-top-width: 1px;
+    /*padding-left:30px;*/
+}
+
+.footer-clearance {
+    background-color:#db5d0e;
+    width:100%;
+    height:10px;
+}
+.footer {
+    background-color: #65605E;
+    /*border-top: 1px solid #872119;*/
+    color: whitesmoke;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    /*margin-top: 60px;
+    padding-top: 45px;
+    padding-bottom: 60px;*/
+    padding: 20px;
+    font-size: 9pt;
+}
+
+    .footer a {
+        color: whitesmoke;
+    }
+
+        .footer a:hover {
+            color: #EAEAEA;
+        }
+.share-footer-twitter {
+}
+    .share-footer-twitter a {
+    }
+.share-footer-facebook {
+}
+    .share-footer-facebook a{
+   
+}
+        .share-footer-facebook a:hover {
+    background-image: url('../Images/Facebook-hover.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.main-hero-unit {
+    height: 300px;
+    border-bottom-style: none;
+    border-bottom-color: #DDDDDD;
+}
+
+#slidingFeatures h1 {
+    font-family: 'Microsoft Sans Serif';
+    /*font-weight:lighter;*/
+}
+
+.sliderFact {
+    background-image: url('../Images/factback.jpg');
+    background-repeat: repeat-x;
+    margin: 0;
+    font-family: 'Microsoft JhengHei';
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    color: ghostwhite;
+    width: 450px;
+}
+
+.slider1 {
+    background-image: url('../Images/Milestones-slide1-mobile.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.slider2 {
+    background-image: url('../Images/mobile-slider2.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.slider3 {
+    background-position: left;
+    background-image: url('../Images/mobile-slider3.jpg');
+    background-repeat: no-repeat;
+}
+
+.slider4 {
+    background-position: center;
+    background-image: url('../Images/mobile-slider4.jpg');
+    background-repeat: no-repeat;
+}
+
+#latestActivities {
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.latestActivities {
+    border-style: none solid solid none;
+    border-width: 1px;
+    border-color: #DDDDDD;
+    height: 300px;
+    /*height:auto;*/
+}
+
+    .latestActivities .heading {
+        height: 40px;
+        background-color: #DFF0D8;
+        width: 100%;
+        margin-top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #DDDDDD;
+        font-size: 16pt;
+        font-weight: bold;
+        padding-top: 10px;
+    }
+
+        .latestActivities .heading span {
+            padding-left: 50px;
+        }
+
+.Screening {
+    border-style: none none solid solid;
+    border-width: 1px;
+    border-color: #DDDDDD;
+    min-height: 350px;
+}
+
+    .Screening .heading {
+        height: 40px;
+        background-color: #DFF0D8;
+        width: 100%;
+        margin-top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #DDDDDD;
+        font-size: 16pt;
+        font-weight: bold;
+        padding-top: 10px;
+    }
+
+        .Screening .heading span {
+            padding-left: 50px;
+        }
+
+.SocialMedia {
+    margin-top: 2em;
+    /*border-style: solid none solid solid;
+    border-width: 1px;
+    border-color: #DDDDDD;*/
+    height: 450px;
+}
+
+    .SocialMedia .heading {
+        height: 40px;
+        background-color: #0088CC;
+        width: 100%;
+        color: white;
+        margin-top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #DDDDDD;
+        font-size: 16pt;
+        font-weight: bold;
+        padding-top: 10px;
+    }
+
+        .SocialMedia .heading span {
+            padding-left: 50px;
+        }
+
+.home-content {
+    padding: 50px;
+}
+
+.followUs {
+    /*padding-top: 20px;*/
+    margin-top: 1em;
+    border-style: solid none solid solid;
+    border-width: 1px;
+    border-color: #DDDDDD;
+    height: 150px;
+}
+
+    .followUs .heading {
+        height: 40px;
+        background-color: #DFF0D8;
+        width: 100%;
+        margin-top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #DDDDDD;
+        font-size: 16pt;
+        font-weight: bold;
+        padding-top: 20px;
+    }
+
+        .followUs .heading span {
+            padding-left: 50px;
+        }
+
+    .followUs span {
+        font-size: 16pt;
+        padding-left: 20px;
+        padding-bottom: 0;
+        font-weight: bold;
+        color: #333333;
+    }
+.facebookLogin {
+    border-style: none none none solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+}
+.register {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    /*padding:30px;*/
+}
+
+    .register h2 {
+        font-family: 'Microsoft JhengHei UI';
+        font-weight: lighter;
+        color: #65605E;
+        text-align: center;
+    }
+
+    .register h3 {
+        font-family: 'Microsoft JhengHei UI';
+        font-weight: 100;
+        color: #65605E;
+        text-align: center;
+        font-size: 12pt;
+    }
+
+    .register td {
+        padding-right: 10px;
+        padding-left: 30px;
+    }
+
+.ChangePassword {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+}
+
+    .ChangePassword h2 {
+        font-family: 'Microsoft JhengHei UI';
+        font-weight: lighter;
+        color: #65605E;
+        text-align: center;
+    }
+
+    .ChangePassword h3 {
+        font-family: 'Microsoft JhengHei UI';
+        font-weight: 100;
+        color: #65605E;
+        text-align: center;
+        font-size: 12pt;
+    }
+
+    .ChangePassword table {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ChangePassword td {
+        padding-right: 10px;
+        padding-left: 30px;
+    }
+
+.AffiliatedOrganisations {
+    /*border-style: solid;
+    border-width: 1px;
+    border-color: gainsboro;*/
+}
+
+.Gallery {
+    /*padding-top: 20px;*/
+    border: 1px solid #DDDDDD;
+    margin-top: 1em;
+    height: 300px;
+}
+
+    .Gallery .heading {
+        height: 40px;
+        background-color: #DFF0D8;
+        width: 100%;
+        margin-top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #DDDDDD;
+        font-size: 16pt;
+        font-weight: bold;
+        padding-top: 20px;
+    }
+
+        .Gallery .heading span {
+            padding-left: 50px;
+        }
+
+    .Gallery span {
+        font-size: 16pt;
+        padding-left: 20px;
+        padding-bottom: 0;
+        font-weight: bold;
+        color: #333333;
+    }
+
+.Videos {
+    /*padding-top: 20px;*/
+    border: 1px solid #DDDDDD;
+    margin-top: 1em;
+    height: 300px;
+}
+
+    .Videos .heading {
+        height: 40px;
+        background-color: #DFF0D8;
+        width: 100%;
+        margin-top: 0;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: #DDDDDD;
+        font-size: 16pt;
+        font-weight: bold;
+        padding-top: 20px;
+    }
+
+        .Videos .heading span {
+            padding-left: 50px;
+        }
+
+    .Videos span {
+        font-size: 16pt;
+        padding-left: 20px;
+        padding-bottom: 0;
+        font-weight: bold;
+        color: #333333;
+    }
+.demark {
+    background-image: url('../Images/demark.png');
+    background-repeat: no-repeat;
+    height: 750px;    
+    width: 100%;
+}
+.quotation-open {
+    width:100%;
+    height:100px;
+    background-image: url('../Images/Quotation-Marks.png');
+    background-repeat: no-repeat;
+}
+.img-ct1 {
+    height:266px;
+    width:100%;
+    background-image: url('../Images/ID-10025387.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+ #gallery {
+    padding: 30px;
+    /*background: #e1eef5;*/
+  }
+  #descriptions {
+    position: relative;
+    height: 50px;
+    /*background: #EEE;*/
+    margin-top: 10px;
+    width: 640px;
+    padding: 10px;
+    overflow: hidden;
+  }
+    #descriptions .ad-image-description {
+      position: absolute;
+    }
+      #descriptions .ad-image-description .ad-description-title {
+        display: block;
+      }
+.default-news {
+   
+}
+    .default-news ol {
+         font-size:10pt;
+    }
+    .default-news li {
+        font-size:10pt;
+    }

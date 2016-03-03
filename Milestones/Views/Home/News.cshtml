@@ -1,0 +1,52 @@
+﻿@using Milestones.Models;
+
+@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new MilestoneDb();
+}
+<meta name="description" content="Latest news and happenings at the Center." />
+<div class="register">
+
+    @{
+        var latestNews = db.LatestActivities.OrderByDescending(o => o.id).Take(1);
+        
+        <h2>
+            <img src="~/Images/News.png" /></h2>
+        <h2>@latestNews.Select(p => p.title).FirstOrDefault()</h2>
+        <hr />
+        <p style="font-size: 10pt; color: #808080">
+            <i class="icon-Calender"></i>Posted: @latestNews.Select(p => p.DateCreated).FirstOrDefault()
+            <span style="float: right;">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://milestonescenter.azurewebsites.net/News/Details/@latestNews.Select(p => p.id).FirstOrDefault()" data-via="your_screen_name" data-lang="en">Tweet</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+            </span>
+        </p>       
+        <div style="padding: 30px; text-align: justify">
+            @*<h3>@latestNews.Select(p => p.title).FirstOrDefault()</h3>*@
+
+            <div class="default-news">
+                @Html.Raw(@latestNews.Select(p => p.content).FirstOrDefault())
+            </div>
+        </div>
+        <hr />
+        <p>
+            <strong>Other News</strong>
+        </p>
+        var AllNews = db.LatestActivities.Select(p => p).OrderByDescending(p => p.id).Skip(1);
+
+
+        foreach (var news in AllNews)
+        {
+        <p>
+            <a href="~/News/Details/@news.id/@news.title" style="padding-bottom:10px;">@news.title</a><br />
+            <span style="font-size: 9pt"><strong>Posted:</strong> @news.DateCreated</span>
+        </p>
+        <hr />    
+        }
+
+        
+    }
+
+</div>

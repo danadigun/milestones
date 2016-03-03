@@ -1,0 +1,46 @@
+﻿@using Milestones.Models;
+
+@{
+    ViewBag.Title = "ViewAllUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="register">
+    <h2><img src="~/Images/User-Group.png" /></h2>
+    <h2>Registered Users</h2>
+    <hr />
+    @{
+        var db = new MilestoneDb();
+
+        var UsersCollection = from s in db.UserProfiles select s;
+        <p  style="text-align:center">
+            Total no of Registered Users: <span style="color:#0026ff"> @UsersCollection.Count()</span>
+            <a href="~/Home/admin" class="btn btn-danger" style="margin-left:40px;">back to admin</a>
+        </p><hr />
+        <table class="table">
+            <tr style="background-color:#808080">
+                <td>FirstName</td>
+                <td>LastName</td>
+                <td>MaritalStatus</td>
+                <td>Occupation</td>
+                <td>Phone</td>
+                <td>Email</td>
+                <td>PlaceOfOrigin</td>
+
+            </tr>
+            @foreach (var user in UsersCollection)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.MaritalStatus</td>
+                    <td>@user.Occupation</td>
+                    <td>@user.phone</td>
+                    <td>@user.email</td>
+                    <td>@user.PlaceOfOrigin</td>
+                </tr>
+            }
+        </table>
+    }
+</div>

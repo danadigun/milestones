@@ -1,0 +1,81 @@
+﻿@using Milestones.Models;
+@{
+    ViewBag.Title = "ViewAssessments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="register">
+    <h2>
+        <img src="~/Images/User-Profile2.png" /></h2>
+    <h2>Online Assessments</h2>
+    <hr />
+
+    @{
+        var db = new MilestoneDb();
+
+        var UsersCollection = from s in db.UserProfiles select s;
+
+        List<string> ViewedAssessments = (from s in db.ViewedAssessments select s.username).ToList();
+        List<string> ScreenedUsers = (from s in db.ScreeningTests select s.username).ToList();
+
+        List<string> modelCount = new List<string>();
+
+        foreach (var item in UsersCollection)
+        {
+            if (ScreenedUsers.Contains(item.UserName))
+            {
+                modelCount.Add(item.UserName);
+            }
+        }
+        decimal count = modelCount.Count() - ViewedAssessments.Count();
+        
+        if(count <= 0){
+            count = 0;
+        }
+        
+        <p class="alert alert-info" style="text-align: center">
+            <strong>Heads Up!</strong>
+            You have @count assessments to respond to.<br />
+            <span style="font-size: 10pt;">Please confirm that each assessment is valid. Mark as "read" when through with an assessment.</span>
+        </p>
+        foreach (var user in UsersCollection)
+        {
+
+            //if !ViewedAssessments.Contains(user.UserName) user assessment has not been viewed
+            if (user.FirstName == null && !ViewedAssessments.Contains(user.UserName) && ScreenedUsers.Contains(user.UserName))
+            {
+        <div style="border: solid 1px #808080; background-color: #e7ebf2; padding: 10px;">
+            <p style="color: red; font-size: 19pt;">Anonnymous</p>
+            <hr style="border: solid 0.5px #808080" />
+            <div style="font-size: 8pt; padding-left: 20px;">
+                <p style="color: red"><b>Email: </b>Anonnymous</p>
+                <p><b>Preferred username: </b>@user.UserName</p>
+                <p><a href="~/Screening/ViewUserAssessment?username=@user.UserName" class="btn"><i class="icon-user"></i>&nbsp;View Assessment</a></p>
+            </div>
+
+        </div>
+        <br />
+        <br />
+            } if (user.FirstName != null && !ViewedAssessments.Contains(user.UserName) && ScreenedUsers.Contains(user.UserName))
+            {
+        <div style="border: solid 1px #808080; background-color: #e7ebf2; padding: 10px;">
+            <p style="font-size: 19pt; color: #808080">@user.FirstName&nbsp;@user.LastName</p>
+            <hr style="border: solid 0.5px #808080" />
+            <div style="font-size: 8pt; padding-left: 20px;">
+                <p><b>Email: </b>@user.email</p>
+                <p><b>Preferred username: </b>@user.UserName</p>
+                <p><a href="~/Screening/ViewUserAssessment?username=@user.UserName" class="btn "><i class="icon-user"></i>&nbsp;View Assessment</a></p>
+            </div>
+
+        </div>
+        <br />
+        <br />
+            }
+            else
+            {
+                //do nothing
+            }
+        }
+       
+    }
+</div>

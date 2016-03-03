@@ -1,0 +1,223 @@
+﻿@model IEnumerable<Milestones.Models.ScreeningTest>
+@using Milestones.Models;
+
+@{
+    ViewBag.Title = "ViewUserAssessment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    var db = new MilestoneDb();
+}
+
+<div class="register">
+    <h2>
+        <img src="~/Images/User-Profile2.png" /></h2>
+    <h2>User online Assessment</h2>
+    <hr />
+
+    @if (Model.Count() == 0)
+    {
+        <p>This user has not taken any assessments</p>
+         <div class="row-fluid">
+            @*<div class="span2">
+                 <a href="~/home/admin" class="btn btn-danger">back to admin</a>
+            </div>*@
+            <div class="span6">
+                <form  method="post" action="~/Screening/MarkAsRead" style="float:left">
+                    <input type="hidden" name="username" value="@Model.Select(p=>p.username).LastOrDefault()" />
+                    <input type="submit" onclick="return confirm('Do you really want to submit the form?');" class="btn btn-danger" value="mark as read."><br />
+                </form>
+            </div>
+            <div class="span4">
+                 <a href="~/Home/ViewAssessments" class="btn">do not mark as read. </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        
+        <p style="font-size: 10pt">
+            User: <b>@Model.Select(p => p.username).LastOrDefault()</b><br />
+            Last updated: <b>@Model.Select(p => p.DateCreated).LastOrDefault()</b><br />
+            <br />
+           
+        </p>
+        <div class="row-fluid">
+            @*<div class="span2">
+                 <a href="~/home/admin" class="btn btn-danger">back to admin</a>
+            </div>*@
+            <div class="span6">
+                <form method="post" action="~/Screening/MarkAsRead" style="float:left">
+                    <input type="hidden" name="username" value="@Model.Select(p=>p.username).LastOrDefault()" />
+                    <input type="submit" class="btn btn-danger" value="Please mark as read. i've completed user's assessment."><br />
+                </form>
+            </div>
+            <div class="span4">
+                 <a href="~/Home/ViewAssessments" class="btn">i'm yet to complete this assessment.</a>
+            </div>
+        </div>
+        <table class="table">
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Question)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.weight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Question)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    }
+    @if (Model.Count() < db.Questionnaires.Count())
+    {
+        <p><b>Summary</b></p><hr />
+        <p style="font-size:10pt; margin-top:2em" class="alert alert-danger">
+            <strong>Heads Up!</strong>
+            This user has not completed the online assessment. thus no summary was generated.
+        </p>
+        
+    }else{
+        var weights = Model.Select(p => p.weight).Sum();
+            //.OrderByDescending(p => p.DateCreated);
+
+            //assessments
+            <div class="register">   
+                          
+                    @if (weights == 0)
+                    {
+                        <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3> Test Assessment.</h3>
+                        <hr />
+                       
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:#0026ff">None Reported</a>
+                            </p>
+                           
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                     None.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                    }
+                    @if (weights > 0 && weights <= 5)
+                    {
+                    <h2><img src="~/Images/Appointment.png" /></h2>
+                         <h3> Test Assessment.</h3>
+                        <hr />
+                       
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:#00ff21">Low Level</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">You are at risk of health and other problems from your current pattern of substance use</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                     Please contact one of our counselors for advise on Substance use and associated problems, and prevention.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                    }
+                 @if (weights >= 6 && weights <= 10)
+                 {
+                      <h2><img src="~/Images/Appointment.png" /></h2>
+                       <h3> Test Assessment.</h3>
+                        <hr />
+                       
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:#b200ff">Moderate Level</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">You are at risk of health and other problems from your current pattern of substance use</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                      Please contact one of our counselors for information on Community Based out- patient Intensive counseling sessions to assist you.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                 }
+                 @if (weights >= 11 && weights <= 15)
+                 {
+                      <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3> Test Assessment.</h3>
+                        <hr />
+                       
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:red">Substantial Level.</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">You are at high risk of experiencing health, social, financial, legal and relationship problems as a result of your current pattern of use and are likely to be dependent.</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                    Please contact one of our counselors for information on Substance use disorder management options, and centers available to you.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                 }
+                 @if (weights >= 16 && weights <= 20)
+                 {
+                     <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3> Test Assessment.</h3>
+                        <hr />
+                       
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:red">Severe Level</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">	You are at high risk of experiencing severe health, social, financial legal and relationship problems as a result of your current pattern of use and are likely to be dependent.</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                    Please contact your doctor or one of our counselors for information on Substance abuse disorder Management options and centers available to you.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                 }
+            </div>
+    
+    }
+</div>

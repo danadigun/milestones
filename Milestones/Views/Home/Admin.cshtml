@@ -1,0 +1,326 @@
+﻿@using Milestones.Models;
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new MilestoneDb();
+}
+<header>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    @*<title>TinyAccordion JavaScript Accordion</title>*@
+    <link href="~/TinyAccordion/style.css" rel="stylesheet" />
+    @*<script src="~/Scripts/angular.js"></script>*@
+    <script src="~/Js/app.js"></script>
+
+    <link href="~/bootstrap-editor/lib/css/prettify.css" rel="stylesheet" />
+    <link href="~/bootstrap-editor/lib/css/wysiwyg-color.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/libs/js/jquery-1.7.1.min.js"></script>
+
+    <script src="~/bootstrap-editor/lib/js/bootstrap-button.js"></script>
+    <script src="~/bootstrap-editor/lib/js/bootstrap.js"></script>
+    <script src="~/bootstrap-editor/lib/js/bootstrap.min.js"></script>
+    <script src="~/bootstrap-editor/lib/js/jquery-1.7.2.min.js"></script>
+    <script src="~/bootstrap-editor/lib/js/prettify.js"></script>
+    <script src="~/bootstrap-editor/lib/js/wysihtml5-0.3.0.js"></script>
+    <script src="~/bootstrap-editor/lib/js/wysihtml5-0.3.0.min.js"></script>
+
+
+    <script src="~/bootstrap-editor/src/bootstrap-wysihtml5.js"></script>
+
+</header>
+<div class="register">
+    <h2>
+        <img src="~/Images/Services.png" /></h2>
+    <h2>Administrative Management Portal.</h2>
+    <hr />
+</div>
+<div id="header">
+    <a href="javascript:parentAccordion.pr(1)">Expand All</a> | <a href="javascript:parentAccordion.pr(-1)">Collapse All</a>
+</div>
+<ul class="acc" id="acc">
+    <li>
+        <h3>Admin Home<img style="float: right" src="~/Images/Arrowhead-Down.png" /></h3>
+        <div class="acc-section">
+            <div class="acc-content">
+
+                <div>
+
+                    <!-- Add question Modal -->
+                    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Add new screening question</h3>
+                        </div>
+                        <form method="post" action="~/Questionnaire/Create" class="form-horizontal">
+                            <div class="modal-body" style="height: 200px;">
+                                @Html.AntiForgeryToken()
+                                <div style="height: 150px;">
+                                    <label><b>Question: </b></label>
+                                    <p style="font-size: 10pt;">
+                                        <b>You're adding: </b>{{question}}
+                                    </p>
+
+                                    <div>
+                                        <p>
+                                            <input required data-ng-model="question" type="text" name="Question" style="width: 500px" id="Question" />
+                                        </p>
+                                        <p>
+                                            <b>Weights.</b>
+                                        </p>
+                                        <p style="font-size: 10pt">
+                                            Yes
+                                            <select name="WeightYes" style="width: 80px; margin-right: 10px;">
+                                                <option>1</option>
+                                                <option>0</option>
+                                            </select>
+                                            No
+                                            <select name="WeightNo" style="width: 80px">
+                                                <option>0</option>
+                                                <option>1</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <button class="btn btn-primary" data-loading-text="Loading...">Save changes</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <!--Remove question modal-->
+                    <div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel2">Remove Question</h3>
+                        </div>
+                        <form method="post" action="~/Questionnaire/Delete/" class="form-horizontal">
+                            <div class="modal-body">
+
+                                @Html.AntiForgeryToken()
+                                <div>
+                                    <label>Select the Id of the question you wish to delete</label>
+                                    <div>
+                                        @{
+                                            var items = new List<SelectListItem>();
+
+                                            foreach (var x in db.Questionnaires.Select(p => p.id))
+                                            {
+                                                items.Add(new SelectListItem { Value = x.ToString(), Text = x.ToString() });
+                                            }
+                                        }
+                                        @if (items.Count() != 0)
+                                        {
+                                            @Html.DropDownList("Id", items)<br />
+                                            <br />
+                                        }
+                                        else
+                                        {
+                                            <p style="font-size: 10pt; color: red; font-style: italic; font-weight: bold">
+                                                You have not added any questions yet!
+                                            </p>
+                                        }
+
+                                        <div>
+                                            @{
+                                                var tabledata = from s in db.Questionnaires select s;
+                                                <table style="font-size: 10pt" class="table-condensed  table-bordered table-striped">
+                                                    <tr>
+                                                        <td><a>Id</a></td>
+                                                        <td><a>Question</a></td>
+                                                    </tr>
+                                                    @foreach (var item in tabledata)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.id</td>
+                                                            <td>@item.question</td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                @if (items.Count() != 0)
+                                {
+                                    <button class="btn btn-primary" data-loading-text="please...">Remove</button>
+                                }
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div style="margin-top: 1em">
+                    <p style="font-size:14pt; color:#d55812">Users' Statistics</p>
+                    <hr />
+                    <div style="margin-top:1em; padding-left:50px;">
+                        <p style="font-size:12pt">Total no. of users currently registered: <span style="color:red">@db.UserProfiles.Count()</span></p>
+                        <p>
+                            <a href="~/Home/ViewAllUsers" class="btn btn-primary"><i class="icon-user icon-white"></i>&nbsp;&nbsp;View all registered users</a>                          
+                        </p><br />
+                        @*<p style="font-size:12pt">Total no. of users currently logged-in: </p>*@
+                        <p style="font-size:12pt">Total no. Onlines surveys conducted: </p>
+                        <p>
+                            <a href="~/Home/ViewAssessments" class="btn"><i class="icon-user"></i>&nbsp;&nbsp;View online assessments</a>                          
+                        </p>
+                    </div>
+                </div>
+                <div style="margin-top: 2em">
+                    <p style="font-size:14pt; color:#d55812" >Question List</p>
+                    <hr />
+                    <p>
+                        <!-- Add question trigger -->
+                        <a href="#myModal" role="button" class="btn btn-success" data-toggle="modal"><i class="icon-plus"></i>Add new question to list</a>
+                        <!--Remove question trigger-->
+                        <a href="#myModal2" role="button" class="btn btn-success" data-toggle="modal"><i class="icon-minus"></i>Remove question from list</a>
+                    </p>
+
+                    @{
+                        var query = from s in db.Questionnaires select s;
+                        <table style="font-size: 11pt;" class="table  table-bordered table-striped">
+                            <tr>
+                                <td><a>Id</a></td>
+                                <td><a>Question</a></td>
+                            </tr>
+                            @foreach (var item in query)
+                            {
+                                <tr>
+                                    <td>@item.id</td>
+                                    <td>@item.question</td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <h3>Latest News & Activities<img style="float: right" src="~/Images/Arrowhead-Down.png" /></h3>
+        <div class="acc-section">
+            <div class="acc-content">
+                <!--LatestActivities-->
+                <div id="LatestActivities">
+                    <p style="font-size: 11pt;">News content</p>
+                    <hr />
+                    <a href="#myModal3" class="btn btn-success" data-toggle="modal">Add news content</a>
+                    <!--Add news content modal-->
+                    <div id="myModal3" style="width: 800px;" class="modal hide fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel3">Add news content</h3>
+                        </div>
+                        <form method="post" action="~/News/Create" class="form-horizontal">
+                            @Html.AntiForgeryToken()
+                            <div class="modal-body" style="height: 500px;">
+                                <input type="hidden" name="DateCreated" value="@DateTime.Now.ToLongDateString()" />
+
+                                <p style="font-size: 10pt;">News title.</p>
+                                <div>
+                                    <input name="title" type="text" required style="width: 700px;" />
+                                </div>
+
+                                <p style="font-size: 10pt;">Leading content.</p>
+                                <div>
+                                    @*<input type="text" data-edit="createLink">*@
+                                    <textarea name="LeadingContent" class="editable-leadingContent" style="width: 500px; height: 50px" maxlength="150"></textarea>
+                                 @*   <script>
+                                        $('.editable-leadingContent').wysihtml5({
+                                            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                                            "emphasis": true, //Italics, bold, etc. Default true
+                                            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                                            "html": false, //Button which allows you to edit the generated HTML. Default false
+                                            "link": true, //Button to insert a link. Default true
+                                            "image": false, //Button to insert an image. Default true,
+                                            "color": false //Button to change color of font  
+                                        });
+                                    </script>*@
+                                </div>
+
+                                <p style="font-size: 10pt;">Main content.</p>
+                                <div>
+                                    <textarea class="editable" name="content" style="width: 700px; height: 300px;"></textarea>
+                                    <script>
+                                        $('.editable').wysihtml5({
+                                            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                                            "emphasis": true, //Italics, bold, etc. Default true
+                                            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                                            "html": false, //Button which allows you to edit the generated HTML. Default false
+                                            "link": true, //Button to insert a link. Default true
+                                            "image": true, //Button to insert an image. Default true,
+                                            "color": false //Button to change color of font  
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <button class="btn btn-primary" data-loading-text="Loading...">Add news content.</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!--News controls-->
+                    <div style="margin-top: 2em">
+                        @{
+                            var newsList = db.LatestActivities.Select(p => p);
+                            <table class="table table-condensed table-striped" style="font-size: 10pt;">
+
+                                @foreach (var item in newsList)
+                                {
+                                    <tr>
+                                        <td style="color: #808080; font-style: italic">@DateTime.Parse(@item.DateCreated).ToShortDateString()</td>
+                                        <td>@item.title</td>
+                                        <td style="width: 150px;"><a href="~/News/Edit/@item.id" class="btn-small btn"><i class="icon-edit"></i>Edit</a>
+                                            <a href="~/News/Delete/@item.id" class="btn-small btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </table>
+
+                        }
+                    </div>
+                </div>
+
+                <!--Featured Content-->
+                <div id="FeraturedContent">
+                </div>
+            </div>
+        </div>
+    </li>
+    <li>
+        <h3>About Us<img style="float: right" src="~/Images/Arrowhead-Down.png" /></h3>
+        <div class="acc-section">
+            <div class="acc-content">
+               <p>Comming Soon.</p>
+            </div>
+        </div>
+    </li>
+   
+    <li>
+        <h3>Services<img style="float: right" src="~/Images/Arrowhead-Down.png" /></h3>
+        <div class="acc-section">
+            <div class="acc-content">
+               <p>Comming Soon.</p>
+            </div>
+        </div>
+    </li>
+
+</ul>
+
+
+

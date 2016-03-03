@@ -1,0 +1,82 @@
+﻿@model Milestones.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+@*<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>*@
+<meta name="description" content="Login into milestonescenter.org" />
+
+
+<div>
+    <h2 style="text-align: center">
+        <img src="~/Images/Lock-Open.png" /></h2>
+    <h2 style="text-align: center; font-family: 'Microsoft JhengHei UI'; font-weight: lighter; color: #65605E; text-align: center;">Sign In</h2>
+    <hr />
+
+    <div class="row" style="padding:2em;">
+        @*<div class="span2"></div>*@
+        <div class="span5">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <span style="text-align: center; color: red">
+                    @Html.ValidationSummary(true)
+                </span>
+                <div>
+                    <div class="control-group">
+                        <label class="control-label">Username</label>
+                        <div class="controls">@*@Html.TextBoxFor(m => m.UserName)*@
+                            <input type="text" name="UserName" style="width: 100%;" required />
+                        </div>
+
+                        @*@Html.ValidationMessageFor(m => m.UserName)*@
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Password</label>
+                        <div class="controls">@*@Html.PasswordFor(m => m.Password)*@
+                            <input type="password" name="Password" style="width: 100%;" required />
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Remember me
+                                </label>
+                                <br />
+                                <button type="submit" class="btn btn-success span2">
+                                    @*<img src="~/Images/login.png" />*@Sign in&nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <p style="text-align: center; font-size: 10pt;" class="control-group">
+                        @Html.ActionLink("Create an account", "Register") if you are not yet registered.
+                    </p>
+
+                </div>
+            }
+           
+        </div>
+        <div class="span2 facebookLogin visible-desktop" style="height:250px; margin-right:-15em;margin-left:5em;">&nbsp;</div>
+        <div class="span3">
+             <div class="register">
+                <section class="social" id="socialLoginForm">
+                    @*<h2>Use another service to log in.</h2>*@
+                    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
+        </div>
+        <div class="span2 hidden-desktop"></div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

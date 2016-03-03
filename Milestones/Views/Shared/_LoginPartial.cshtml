@@ -1,0 +1,31 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <text>
+
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-inline visible-desktop hidden-mobile hidden-tablet" style="color: whitesmoke">
+            Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", @style = "color:Whitesmoke", title = "Manage" })!
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="btn"><i class="icon-off"></i>Log off</a>
+        </div>
+        <div class="form-inline visible-mobile hidden-desktop visible-tablet" style="color: black">
+            Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", @style = "color:black", title = "Manage" })!
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="btn"><i class="icon-off"></i>Log off</a>
+        </div>
+        
+    }
+
+
+    </text>
+   
+}
+else
+{
+    <span>
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li> *@
+        <a href="@Url.Action("Register", "Account", routeValues: null)" class="btn btn-danger" id="registerLink"><i class="icon-user icon-white"></i>&nbsp;create an account</a>
+        <a href="@Url.Action("Login", "Account", routeValues: null)" class="btn" id="loginLink"><i class="icon-lock"></i>&nbsp;&nbsp;Login</a>
+        @*  @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@
+    </span>
+}

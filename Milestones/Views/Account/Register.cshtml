@@ -1,0 +1,148 @@
+﻿@model Milestones.Models.UserProfile
+@{
+    ViewBag.Title = "Register";
+}
+<meta name="description" content="Register online at milestonescenter.org for an online assessment." />
+
+<header>
+    <link href="~/Content/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+</header>
+<div class="register">
+    <h2><img src="~/Images/User-Profile2.png" /></h2>
+    <h2>Sign up for a new account.</h2> <hr /><br />
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @*<h3>Basic information</h3>*@
+    
+        <div class="register">
+            <div class="control-group">
+                <label class="control-label">Firstname</label>
+                <div class="controls">
+                    <input type="text" name="FirstName" style="width: 250px;"  /></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Lastname</label>
+                <div class="controls">
+                    <input type="text" name="LastName" style="width: 250px;" required /></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Gender</label>
+                <div class="controls">
+                    <select name="Gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Date of Birth</label>
+                <div class="controls">
+                    <div class="input-append date datepicker" data-date="@DateTime.Now.ToShortDateString()" data-date-format="dd-mm-yyyy">
+                        <input id="ApplicationDeadLine" name="DateOfBirth" class="span2" size="16" type="text" value="@DateTime.Now.ToShortDateString()" readonly/><span class="add-on" title="Click on the calendar to add a date."><i class="icon-calendar"></i></span>
+                    </div>
+                </div>
+
+            </div>
+             <div class="control-group">
+                <label class="control-label">Marital Status</label>
+                <div class="controls">
+                    <select>
+                        <option>Married</option>
+                        <option>Single</option>
+                        <option>Engaged</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Occupation</label>
+                <div class="controls"> <input type="text" name="Occupation" style="width: 250px;" required /></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">PlaceOfOrigin</label>
+                <div class="controls"><input type="text" name="PlaceOfOrigin" style="width: 250px;" required /></div>
+            </div>
+           
+        </div>
+    
+        <h3><img src="~/Images/Phone-Book.png" />Contact Information</h3>
+       
+        <hr />
+         <div class="register">
+             <div class="control-group">
+                 <label class="control-label">
+                     Email
+                 </label>
+                 <div class="controls">
+                      <input type="email" name="email" style="width: 250px;" placeholder="must be a valid email address." required />
+                 </div>
+             </div>
+              <div class="control-group">
+                 <label class="control-label">
+                     Phone number
+                 </label>
+                 <div class="controls">
+                      <input type="text" name="phone" style="width: 250px;" required />
+                 </div>
+             </div>
+              <div class="control-group">
+                 <label class="control-label">
+                     Address
+                 </label>
+                 <div class="controls">
+                      <TextArea name="Address" rows="6" required></TextArea>
+                 </div>
+             </div>
+         </div>
+         <h3><img src="~/Images/Key.png"/>Login Credentials</h3>
+        <hr />
+        <div class="register">
+            <div class="control-group">
+                <label class="control-label">Username</label>
+                <div class="controls"><input type="text" name="UserName" style="width: 250px;" required />
+                   
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <div class="controls"><input type="password" name="Password" style="width: 250px;" required /></div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Confirm Password</label>
+                <div class="controls"><input type="password" name="ConfirmPassword" style="width: 250px;" required /></div>
+            </div>
+        </div><hr />
+        <p style="text-align: center">
+            <input type="submit" class="btn btn-success" value="create account" />
+            <a href="~/" class="btn">Cancel</a>
+        </p>
+        
+@*<fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+            </li>
+            <li>
+                <label>Password</label>
+                @Html.PasswordFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword)
+            </li>
+        </ol>
+       
+    </fieldset>*@
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+  
+
+   
+}

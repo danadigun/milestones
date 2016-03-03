@@ -1,0 +1,57 @@
+﻿@using Milestones.Models;
+@{
+    ViewBag.Title = "ScreeningTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new MilestoneDb();
+}
+
+<div class="register">
+
+    <h2>
+        <img src="~/Images/Doctor.png" />
+    </h2>
+    <h2>Drug Abuse Screening Test (DAST).</h2>
+    <hr />
+    <p style="font-size: 10pt;">
+        To take the questionaire , please select the option  which best reflects how each statement applies to you.
+        The questions refer to the past 12 months . Carefully read each statement and decide whether your answer is Yes or No.
+    </p>
+    <br />
+    <p style="font-size: 10pt;">
+        Remember that these questions do not refer to alchoholic beverages. The DAST does not include alchohol use.
+    </p>
+    <p style="font-size: 10pt;">
+        <br />
+        <b>Please Note:</b> This test will only be scored correctly if you answer each one of the questions 
+    </p>
+    <hr />
+    <div style="font-size:10pt;">
+        <p>
+            <a href="~/Screening/" class="btn btn-success">Start Screening Test Now!</a>
+        </p>
+        @*<ol>
+            @{
+                var query = from s in db.Questionnaires select s.question;
+
+                foreach (var item in query)
+                {
+                <li>
+                   
+                    <p style="font-size: 10pt;">@item</p>
+                    <p style="font-size: 10pt;">
+                        <label class="checkbox inline">
+                            <input type="radio" name="Answer" value="1">
+                            Yes
+                        </label>
+                        <label class="checkbox inline">
+                            <input type="radio" name="Answer" value="2">
+                            No
+                        </label>
+                    </p><br />
+                </li>
+                }
+            }
+        </ol>*@
+    </div>
+</div>

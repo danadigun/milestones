@@ -1,0 +1,40 @@
+﻿@*@model IEnumerable<Milestones.Models.LatestActivities>*@
+@model Milestones.Models.LatestActivities
+
+
+@{
+    ViewBag.Title = @Model.title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="register">
+    <h2>
+        <img src="~/Images/News.png" /></h2>
+    <h2>
+        @Model.title
+    </h2>
+    <hr />
+    <p style="font-size: 10pt; color: #808080">
+        <i class="icon-Calender"></i>Date Added: @Model.DateCreated
+       @* <span style="float: right;">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://milestonescenter.azurewebsites.net/News/Details/@Model.id" data-via="your_screen_name" data-lang="en">Tweet</a>
+            <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+        </span>*@
+    </p>
+    <div class="default-news" style="padding-bottom: 40px; padding-top: 30px;">
+        @Html.Raw(@Model.content)
+    </div><br />
+    <p>
+        <a href="~/Home/news" class="btn btn-info">View other news content</a>
+    </p>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <hr />
+        <p style="padding-left: 40px;">
+            @* @Html.ActionLink("Edit", "Edit", new { id=Model.id }) *@
+            <a href="~/News/Edit/@Model.id" class="btn btn-success"><i class="icon-edit icon-white"></i>Edit</a>
+            <a href="@Url.Action("Admin", "Home")" class="btn">Back to admin</a>
+        </p>
+    }
+</div>

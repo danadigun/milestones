@@ -1,0 +1,284 @@
+﻿@using Milestones.Models;
+
+@{
+    ViewBag.Title = "Screening Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var db = new MilestoneDb();
+    var Questions = from s in db.Questionnaires select s;
+
+    string UserIdentity = User.Identity.Name.ToString();
+}
+
+@{
+    //get the total number of questions in questionnaire repository
+    int totalNoOfQuestions = db.Questionnaires.Count();
+
+    //get the total number of most recent questions answered by logged in user
+    int totalNoOfQuestionsAnsweredByUser = ((from s in db.ScreeningTests
+                                             where s.username == UserIdentity
+                                             select s).OrderByDescending(s => s.DateCreated)
+                                            ).Count();
+
+    //if total no of questions answered by logged in user is less than no of questionnaires 
+    //User has not completed screening --- do something else, do something
+    if (totalNoOfQuestionsAnsweredByUser == 0)
+    {
+        //user has never been screened
+        var Question = (from s in db.Questionnaires select s).FirstOrDefault();
+
+
+        //Display the First question       
+    <form id="ScreeningForm1" method="post" action="~/Screening/Create">
+        <div class="register">
+            <br />
+            <h3>
+                <img src="~/Images/Stethoscope-03.png" /></h3>
+            @{
+                int count = totalNoOfQuestionsAnsweredByUser + 1;
+            }
+            <h3>Question @count of @totalNoOfQuestions</h3>
+            <hr />
+            @Html.AntiForgeryToken()
+            <div class="register">
+                <input type="hidden" name="username" value="@User.Identity.Name.ToString()"/>
+                <input type="hidden" name="DateCreated" value="@DateTime.Now"/>
+                <input type="hidden" name="Question" value="@Question.question"/>
+                <p style="font-size: 11pt;">@Question.question</p>
+                <p>
+                    <input type="radio" id="radio1" name="Weight" value="@Question.WeightYes" required/><label for="radio1">Yes</label>
+
+                    <input type="radio" id="radio2" name="Weight" value="@Question.WeightNo" required/><label for="radio2">No</label>
+                </p>
+
+            </div>
+            <hr />
+            <p style="text-align: right">
+                <a href="~/" class="btn">i'll continue later.</a>
+                <input type="submit" id="SubmitForm1" value="Next" class="btn btn-danger" />
+            </p>
+
+        </div>
+    </form>
+    <script type="text/javascript">
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        var form = $("#ScreeningForm1").validate();
+        $("#SubmitForm1").click(function () {
+            alert("Valid: " + form.valid());
+        });
+    </script>
+        
+    }
+
+    if (totalNoOfQuestionsAnsweredByUser > 0)
+    {
+        //user has answered at least the first question -> display the next question
+
+        //get a collection of all the ids of the questions answered by user
+        var questionsAnswered = (from s in db.AnsweredQuestions where s.username == UserIdentity select s.QuestionId).ToList();
+
+
+        var NextQuestion = (from s in db.Questionnaires select s).OrderBy(p => p.id).Skip(questionsAnswered.Count()).FirstOrDefault();
+
+        if (NextQuestion == null)
+        {
+
+            //TODO:
+            //user has already taken a survery before. does not need to take a gain.
+            //give him his result...
+
+            var weights = (from s in db.ScreeningTests where s.username == UserIdentity select s.weight).Sum();
+            //.OrderByDescending(p => p.DateCreated);
+
+            //assessments
+            <div class="register">   
+                          
+                    @if (weights == 0)
+                    {
+                        <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3>Your Screening Test Assessment.</h3>
+                        <hr />
+                        <p style="font-size:11pt;">Thank you for taking the time to do this assessment. Please find below the result of your assessment </p>
+                        <hr />
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:#0026ff">None Reported</a>
+                            </p>
+                           
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                     None.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                    }
+                    @if (weights > 0 && weights <= 5)
+                    {
+                    <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3>Your Screening Test Assessment.</h3>
+                        <hr />
+                        <p style="font-size:11pt;">Thank you for taking the time to do this assessment. Please find below the result of your assessment </p>
+                        <hr />
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:#00ff21">Low Level</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">You are at risk of health and other problems from your current pattern of substance use</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                     Please contact one of our counselors for advise on Substance use and associated problems, and prevention.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                    }
+                 @if (weights >= 6 && weights <= 10)
+                 {
+                      <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3>Your Screening Test Assessment.</h3>
+                        <hr />
+                        <p style="font-size:11pt;">Thank you for taking the time to do this assessment. Please find below the result of your assessment </p>
+                        <hr />
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:#b200ff">Moderate Level</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">You are at risk of health and other problems from your current pattern of substance use</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                      Please contact one of our counselors for information on Community Based out- patient Intensive counseling sessions to assist you.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                 }
+                 @if (weights >= 11 && weights <= 15)
+                 {
+                      <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3>Your Screening Test Assessment.</h3>
+                        <hr />
+                        <p style="font-size:11pt;">Thank you for taking the time to do this assessment. Please find below the result of your assessment </p>
+                        <hr />
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:red">Substantial Level.</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">You are at high risk of experiencing health, social, financial, legal and relationship problems as a result of your current pattern of use and are likely to be dependent.</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                    Please contact one of our counselors for information on Substance use disorder management options, and centers available to you.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                 }
+                 @if (weights >= 16 && weights <= 20)
+                 {
+                     <h2><img src="~/Images/Appointment.png" /></h2>
+                        <h3>Your Screening Test Assessment.</h3>
+                        <hr />
+                        <p style="font-size:11pt;">Thank you for taking the time to do this assessment. Please find below the result of your assessment </p>
+                        <hr />
+                        <div style="font-size:10pt; font-weight:bold; font-weight:bold;">
+                            <p style="font-size:10pt;font-weight:bold;">
+                                Degree of Problems relating to drugs: <a style="color:red">Severe Level</a>
+                            </p>
+                            <p style="margin-left:4%; font-size:10pt;">
+                                ▪<span style="margin-left:4%; color:red; font-style:italic; font-weight:bold">	You are at high risk of experiencing severe health, social, financial legal and relationship problems as a result of your current pattern of use and are likely to be dependent.</span>
+                            </p>
+                            <div class="alert alert-danger">
+                                <strong>Suggested Action!</strong>
+                                <p style="font-size:10pt;">
+                                    Please contact your doctor or one of our counselors for information on Substance abuse disorder Management options and centers available to you.
+                                </p>
+                            </div>
+                          
+
+                        </div>
+                 }
+            </div>
+    
+        }
+        else
+        {
+            if (totalNoOfQuestionsAnsweredByUser == totalNoOfQuestions)
+            {
+                //user has completed screening
+
+                var weights = (from s in db.ScreeningTests where s.username == UserIdentity select s.weight).Sum();
+                //.OrderByDescending(p => p.DateCreated);
+    <p>Score: @weights.ToString();</p>
+               
+    <div>
+        <p>You have Successfully completed your Screening. Result is comming soon.</p>
+    </div>
+            }
+            else
+            {
+             
+    <form id="ScreeningForm2" method="post" action="~/Screening/Create">
+        <div class="register">
+            <br />
+            <h3>
+                <img src="~/Images/Stethoscope-03.png" /></h3>
+            @{
+                int count2 = totalNoOfQuestionsAnsweredByUser + 1;
+            }
+            <h3>Question @count2 of @totalNoOfQuestions</h3>
+            <hr />
+            @Html.AntiForgeryToken()
+            <div class="register">
+                <input type="hidden" name="username" value="@User.Identity.Name.ToString()"/>
+                <input type="hidden" name="DateCreated" value="@DateTime.Now"/>
+                <input type="hidden" name="Question" value="@NextQuestion.question"/>
+                <p style="font-size: 11pt;">@NextQuestion.question</p>
+                <p>
+                    <input type="radio" id="radio3" name="Weight" value="@NextQuestion.WeightYes" required/><label for="radio3">Yes</label>
+
+                    <input type="radio" id="radio4" name="Weight" value="@NextQuestion.WeightNo" required/><label for="radio4">No</label>
+                </p>
+
+            </div>
+            <hr />
+            <p style="text-align: right">
+                <a href="~/" class="btn">i'll continue later.</a>
+                <input type="submit" id="SubmitForm2" value="Next." class="btn btn-danger" />
+            </p>
+
+        </div>
+    </form>
+    <script type="text/javascript">
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        var form = $("#ScreeningForm1").validate();
+        $("#SubmitForm2").click(function () {
+            alert("Valid: " + form.valid());
+        });
+    </script>
+        
+            }
+        }
+
+    }
+   
+}

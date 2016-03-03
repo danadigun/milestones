@@ -1,0 +1,88 @@
+﻿@model Milestones.Models.LatestActivities
+
+<header>
+    <link href="~/bootstrap-editor/lib/css/prettify.css" rel="stylesheet" />
+    <link href="~/bootstrap-editor/lib/css/wysiwyg-color.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-wysihtml5-0.0.2/bootstrap-wysihtml5-0.0.2/libs/js/jquery-1.7.1.min.js"></script>
+
+    <script src="~/bootstrap-editor/lib/js/bootstrap-button.js"></script>
+    <script src="~/bootstrap-editor/lib/js/bootstrap.js"></script>
+    <script src="~/bootstrap-editor/lib/js/bootstrap.min.js"></script>
+    <script src="~/bootstrap-editor/lib/js/jquery-1.7.2.min.js"></script>
+    <script src="~/bootstrap-editor/lib/js/prettify.js"></script>
+    <script src="~/bootstrap-editor/lib/js/wysihtml5-0.3.0.js"></script>
+    <script src="~/bootstrap-editor/lib/js/wysihtml5-0.3.0.min.js"></script>
+
+
+    <script src="~/bootstrap-editor/src/bootstrap-wysihtml5.js"></script>
+
+</header>
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="register">
+
+        @Html.HiddenFor(model => model.id)
+        <input type="hidden" name="DateCreated" value="@Model.DateCreated" />
+
+        <h2>
+            <img src="~/Images/News.png" /></h2>
+        <h2>Edit news content</h2>
+        <hr />
+        <p style="font-size: 10pt">
+            <b>Title</b>
+        </p>
+        <div class="editor-field">
+            @*@Html.TextBoxFor(model => model.title, string.Empty, new { @style = "width:90%" })*@
+            <input name="Title" type="text" value="@Model.title" style="width:90%" required/>
+            @Html.ValidationMessageFor(model => model.title)
+        </div>
+        <br />
+        <p style="font-size: 10pt;">Leading content.</p>
+        <div>
+            <textarea name="LeadingContent" style="width: 500px; height: 50px" maxlength="150" required>@Model.LeadingContent</textarea>
+        </div>
+        <p style="font-size: 10pt">
+            <b>Content</b>
+        </p>
+        <div class="editor-field">
+            @* @Html.EditorFor(model => model.content)*@
+            @* @Html.TextAreaFor(m => m.content, new { @class = "editable", @style = "width:90%", @rows = "24" })
+            @Html.ValidationMessageFor(model => model.content)*@
+            <textarea name="content" class="editable" style="width: 90%" rows="24" required>@Model.content</textarea>
+            <script>
+                $('.editable').wysihtml5({
+                    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                    "emphasis": true, //Italics, bold, etc. Default true
+                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                    "html": false, //Button which allows you to edit the generated HTML. Default false
+                    "link": true, //Button to insert a link. Default true
+                    "image": true, //Button to insert an image. Default true,
+                    "color": false //Button to change color of font  
+                });
+            </script>
+        </div>
+
+
+        <p>
+            <input type="submit" class="btn btn-success" value="Save" />
+            @*  @Html.ActionLink("Back to List", "Index")*@
+            <a href="@Url.Action("Admin", "Home")" class="btn">Back to admin</a>
+        </p>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
