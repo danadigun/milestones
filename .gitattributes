@@ -22,8 +22,8 @@
 *.html     diff=csharp
 *.html linguist-language=csharp
 
-*.js     diff=javascript
-*.js linguist-language=javascript
+*.js     diff=csharp
+*.js linguist-language=csharp
 
 ###############################################################################
 # Set the merge driver for project and solution files
